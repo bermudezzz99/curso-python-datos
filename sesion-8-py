@@ -1,0 +1,107 @@
+# RETO SESION 7
+# CONTROL DE MANTENIMIENTO DE FLOTA
+
+# 1. Lista de vehiculos
+
+flota = [
+    {"codigo": "V-101", "km": 320},
+    {"codigo": "V-102", "km": 780},
+    {"codigo": "V-103", "km": 1250},
+    {"codigo": "V-104", "km": 1680},
+    {"codigo": "V-105", "km": 450},
+    {"codigo": "V-106", "km": 920},
+    {"codigo": "V-107", "km": 1420},
+    {"codigo": "V-108", "km": 1850},
+    {"codigo": "V-109", "km": 610},
+    {"codigo": "V-110", "km": 1100},
+    {"codigo": "V-111", "km": 250},
+    {"codigo": "V-112", "km": 1550}
+]
+
+# 2.contadores
+
+reciente = 0
+seguimiento = 0
+revision = 0
+alta = 0
+total_km = 0
+
+
+# 3. Clasificar los vehiculos
+
+print("REPORTE DE MANTENIMIENTO")
+
+for vehiculo in flota:
+
+    km = vehiculo["km"]
+
+    total_km = total_km + km
+
+    if km < 500:
+        categoria = "Uso reciente"
+        reciente = reciente + 1
+
+    elif km < 1000:
+        categoria = "Seguimiento"
+        seguimiento = seguimiento + 1
+
+    elif km < 1500:
+        categoria = "Programar revision"
+        revision = revision + 1
+
+    else:
+        categoria = "Prioridad alta"
+        alta = alta + 1
+
+    vehiculo["categoria"] = categoria
+
+    print(vehiculo["codigo"], "-", km, "km -", categoria)
+
+
+# 4. Calcular el promedio
+
+promedio = total_km / len(flota)
+
+
+# 5. Mostrar resultados
+
+print("\nRESUMEN DE LA FLOTA")
+
+print("Uso reciente:", reciente)
+print("Seguimiento:", seguimiento)
+print("Programar revision:", revision)
+print("Prioridad alta:", alta)
+
+print("Total de vehiculos:", len(flota))
+print("Kilometraje total:", total_km)
+print("Kilometraje promedio:", promedio)
+
+
+# 6. Consultar vehiculos
+
+respuesta = "si"
+
+while respuesta == "si":
+
+    codigo = input("\nIngrese el codigo del vehiculo: ")
+
+    encontrado = False
+
+    for vehiculo in flota:
+
+        if vehiculo["codigo"] == codigo:
+
+            print("Vehiculo:", vehiculo["codigo"])
+            print("Kilometraje:", vehiculo["km"])
+            print("Categoria:", vehiculo["categoria"])
+
+            encontrado = True
+
+    if encontrado == False:
+        print("Vehiculo no encontrado")
+
+    respuesta = input("Desea consultar otro vehiculo? si/no: ")
+
+
+print("Programa finalizado")
+
